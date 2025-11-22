@@ -1,4 +1,12 @@
 <?php
+// WRONG: the variable name is wrong thats why it leads to undefined variable error
+// $sql = "SELECT * FROM students WHERE age = $aeg";
+
 $age = $_POST['age'];
-$sql = "SELECT * FROM students WHERE age = $aeg"; // wrong variablename
+
+// CORRECT: use the right variable name in the SQL query
+$sql = "SELECT * FROM students WHERE age = $age";
+$res = mysqli_query($conn, $sql);
+
+//replaced $aeg to $age because that was the right variable that contains inputs. 
 ?>
