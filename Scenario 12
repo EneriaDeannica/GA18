@@ -1,4 +1,15 @@
 <?php
 $id = $_GET['id'];
-$sql = "SELECT * FROM students WHERE id = '$id'"; // id is int
+
+// WRONG: the id  was an integer  but had quotes which would lead to inefficiency and even wrong index
+// $sql = "SELECT * FROM students WHERE id = '$id'";
+
+// CORRECT: remove the quotes or cast it in the integer to be safe
+$id = (int) $_GET['id'];
+$sql = "SELECT * FROM students WHERE id = $id";
+
+/*
+replaced the query to remove the quotes from the id since its an integer value. 
+also casted in the integer using "int" to ensure the exact number and id and improve the efficiency of the query. 
+*/
 ?>
