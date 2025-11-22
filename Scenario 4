@@ -1,11 +1,29 @@
 <?php
 $conn = mysqli_connect("localhost","root","","class_db");
 
-
 $first = $_POST['fname'];
 $last = $_POST['lname'];
 
-$sql = "INSERT INTO students (first_name,last_name) VALUES ('$first','$last')";mysqli_query($conn, $sql);
+// WRONG: directly inserted even though its empty which ended up with blank rows
+// $sql = "INSERT INTO students (first_name,last_name) VALUES ('$first','$last')";
+// mysqli_query($conn, $sql);
 
-echo "Inserted!";
+// CORRECT: inspect first whether theres something in the input before inserting
+if(!empty($first) && !empty($last)) {
+
+    // prepared statement para mas safe
+    $stmt = $conn->prepare("INSERT INTO students (first_name, last_name) VALUES (?, ?)");
+    $stmt->bind_param("ss", $first, $last); // "ss" = 2 strings
+    $stmt->execute();
+
+    echo "Inserted!";
+} else {
+    echo "Error: Please fill in all fields!";
+}
+
+/*
+added a check to make sure that the fname wont be blank and the lname before inserting. 
+if there is nothing in the input it wont insert and will show an error. 
+prepared statement was used in order to be protected from SQL injection.
+*/
 ?>
