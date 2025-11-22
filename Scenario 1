@@ -1,6 +1,17 @@
 <?php
 $conn = mysqli_connect("localhost", "root", "", "class_db");
-$id = $_POST['id'];
+
+// WRONG: it used $_POST but the data is from URL 
+// $id = $_POST['id'];
+
+// CORRECT: get the value of the id and use $_GET
+$id = $_GET['id'];
+
+/*
+I replaced the $_POST into $_GET because the data is in the URL. 
+if we're going to use the GET the it should be used with ?id=3 sa URL, and won't be sent in POST form.
+If we were to use POST form, it gets an undefined index since there's no POST data that is accepted.
+*/
 $sql = "SELECT * FROM students WHERE id = $id";
 $res = mysqli_query($conn, $sql);
 $r = mysqli_fetch_assoc($res);
