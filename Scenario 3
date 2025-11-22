@@ -1,7 +1,21 @@
 <?php
 $conn = mysqli_connect("localhost","root","","class_db");
 
+// WRONG: directly included in the SQL query which may be prone to SQL injection
+// $age = $_GET['age'];
+// $sql = "SELECT * FROM students WHERE age = $age";
+
+// CORRECT: must use the prepared statement to be protected against the SQL injection
 $age = $_GET['age'];
-$sql = "SELECT * FROM students WHERE age = $age";
-$res = mysqli_query($conn, $sql);
+
+$stmt = $conn->prepare("SELECT * FROM students WHERE age = ?");
+$stmt->bind_param("i", $age); // "i" means integer
+$stmt->execute();
+
+$res = $stmt->get_result();
+
+/*
+prepared statement was used so that the user won't easily inject the SQL. 
+the $age is treated as an integer only so thats why the query is safe.
+*/
 ?>
