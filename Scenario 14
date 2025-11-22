@@ -1,5 +1,20 @@
 <?php
 $data = $_POST;
 
-$sql = "INSERT INTO students (first_name, last_name, email)VALUES ($data[first_name], $data[last_name], $data[email])"; 
+// WRONG: directly used the $data in the query and no quotes which would lead to undefined index or even SQL error
+// $sql = "INSERT INTO students (first_name, last_name, email)
+// VALUES ($data[first_name], $data[last_name], $data[email])";
+
+// CORRECT: fix the indexing and put quotes for string values
+$first = $data['first_name'];
+$last = $data['last_name'];
+$email = $data['email'];
+
+$sql = "INSERT INTO students (first_name, last_name, email)
+VALUES ('$first', '$last', '$email')";
+$res = mysqli_query($conn, $sql);
+
+/*
+used the correct array indexing using quotes ['first_name'], ['last_name'], ['email'] and added single quotes in the SQL values. 
+*/
 ?>
