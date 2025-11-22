@@ -1,4 +1,10 @@
-<form method="GET" action="save.php">
-  <input name="email">
-</form>
-$email = $_POST['email'];
+<?php
+// WRONG: used $_POST  even though the form method was GET
+// $email = $_POST['email'];
+
+ // CORRECT: use $_GET since the form method is GET
+$email = $_GET['email'];
+
+//
+replaced  $_POST to $_GET since the form used the method = "GET". 
+?>
