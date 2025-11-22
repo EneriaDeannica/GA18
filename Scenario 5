@@ -1,8 +1,18 @@
-<?
-php$conn = mysqli_connect("localhost","root","","class_db");
+<?php
+$conn = mysqli_connect("localhost","root","","class_db");
 
-$email = $_POST['emial']; // misspelled
+// WRONG: mispelled the input name thats why it was undefined index error
+// $email = $_POST['emial']; 
+
+// CORRECTION: should be "email"
+$email = $_POST['email'];
 
 $sql = "SELECT * FROM students WHERE email='$email'";
 $res = mysqli_query($conn, $sql);
+
+/*
+replaced the $_POST['emial'] to $_POST['email'] because the name of the input in the form was "email". 
+if theres a typo in the input name, it creates an undefined index error because it doesnt receive any value. 
+but now it correctly gets the email from the form.
+*/
 ?>
