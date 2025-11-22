@@ -1,9 +1,23 @@
 <?php
 $conn = mysqli_connect("localhost","root","","class_db");
 
-$fname = $_POST['fname'];
+// WRONG: it needs quotes in the SQL so that's why the database thought the value was column name 
+// $fname = $_POST['fname'];
 
-$sql = "SELECT * FROM students WHERE first_name = 
-$fname";
+$fname = $_POST['fname']; // CORRECT: the input is just right 
+
+// WRONG: there is no quotes in the $fname that's it leads to errors and says "Unknown column 'Ana'"
+// $sql = "SELECT * FROM students WHERE first_name = $fname";
+
+// CORRECT: single quotes were used so that it would be a string in the SQL
+$sql = "SELECT * FROM students WHERE first_name = '$fname'";
+
+/*
+the SQL query needed to be fixed by adding single quotes in the $fname. 
+If there were no quotes, the SQL will misinterpret that the value was column name that's why it leads to error. 
+but if it were printed as 'value', then the SQL will know that it is a string search. 
+so now there are no issues when searching the first_name base in the users input.
+*/
+
 $res = mysqli_query($conn, $sql);
 ?>
